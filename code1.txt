@@ -1,0 +1,29 @@
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+x = np.array([-1.6,-0.6,0.5,1.5], dtype = float)
+y = np.array([-0.03,0.82,0.87,0.07], dtype = float)
+
+def lagrange(x,y,a):
+  b = 0
+  for k in range(len(y)):
+    P=1
+    for m in range(len(x)):
+      if k != m:
+        P = (P*(x-x[m])/(x[k]-x[m]))
+      else:
+        continue
+    b += y+y[k]*P
+  return b
+
+x1 = np.linspace(-1.6,1.5,100)
+y1 = [lagrange(x,y,m) for m in x1]
+
+a = float(input('Введите точку для рассчета функции: '))
+ya= lagrange(x,y,a)
+
+plt.plot(x,y,'o',x1,y1)
+plt.plot(a,ya,'ro')
+plt.grid()
+plt.show()
